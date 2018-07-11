@@ -88,10 +88,10 @@
 
         <ul class="home-social">
             <li>
-                <a href="#0"><i class="fa fa-facebook" aria-hidden="true"></i><span>Facebook</span></a>
+                <a href="https://www.facebook.com/tesfa.fest/?hc_ref=ARTHpdkXDs0ZiPCXM8bdpfeq-hnd9iKLGKf4Sj3iiqGyoLOg9826w_UzIiPUEfvlZsA"><i class="fa fa-facebook" aria-hidden="true"></i><span>Facebook</span></a>
             </li>
             <li>
-                <a href="#0"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
+                <a href="https://www.facebook.com/tesfa.fest/?hc_ref=ARTHpdkXDs0ZiPCXM8bdpfeq-hnd9iKLGKf4Sj3iiqGyoLOg9826w_UzIiPUEfvlZsA"><i class="fa fa-twitter" aria-hidden="true"></i><span>Twitter</span></a>
             </li>
         </ul> 
         <!-- end home-social -->
@@ -119,23 +119,22 @@
 
                 <h3 class="h6">Register For Tesfa Event Here</h3>
 
-                <form name="contactForm" id="contactForm" method="post" action="" novalidate="novalidate">
+                <form name="contactForm" id="subscribe-registration-form" method="post" novalidate="novalidate">
                     <fieldset>
-    
                     <div class="form-field">
-                        <input name="contactName" type="text" id="contactName" placeholder="ሙሉ ስም | Full Name" value="" minlength="2" required="" aria-required="true" class="full-width">
+                        <input name="full_name" type="text" id="full_name" placeholder="ሙሉ ስም | Full Name" value="" minlength="2" required="" aria-required="true" class="full-width">
                     </div>
                     <div class="form-field">
-                        <input name="contactEmail" type="email" id="contactEmail" placeholder="ኢሜል | Email" value="" aria-required="true" class="full-width">
+                        <input name="email" type="email" id="email" placeholder="ኢሜል | Email" value="" aria-required="true" class="full-width">
                     </div>
                     <div class="form-field">
-                        <input name="contactSubject" type="number" id="contactSubject" placeholder="ስልክ ቁጥር | Phone Number" required="" value="" class="full-width">
+                        <input name="phone" type="number" id="phone" placeholder="ስልክ ቁጥር | Phone Number" required="" value="" class="full-width">
                     </div>
                     <div class="form-field">
-                        <textarea name="contactMessage" id="contactMessage" placeholder="Your Message" rows="10" cols="50" aria-required="true" class="full-width"></textarea>
+                        <textarea name="description" id="description" placeholder="Your Message" rows="10" cols="50" aria-required="true" class="full-width"></textarea>
                     </div>
                     <div class="form-field">
-                        <button class="full-width btn--primary">Submit</button>
+                        <input id="subscribe-email-submit" type="submit" value="Register Now" class="full-width btn--primary" />
                         <div class="submit-loader">
                             <div class="text-loader">Sending...</div>
                             <div class="s-loader">
@@ -156,7 +155,7 @@
             
                 <!-- contact-success -->
                 <div class="message-success">
-                    Your message was sent, thank you!<br>
+                    Now you are successfully Registered, thank you!<br>
                 </div>
 
             </div> <!-- end contact-primary -->
@@ -292,6 +291,27 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(function(){
+            $('#subscribe-registration-form').on('submit', function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: 'http://127.0.0.1:8000/api/register',
+                    type: 'POST',
+                    data: $('#subscribe-registration-form').serialize(),
+                    success: function(data){
+                        console.log("This is Success", data);
+                        if(data && data.status) {
+                            swal(data.message, data.error, "success");
+                        }else  {
+                            swal(data.message, data.error, "failed");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 
